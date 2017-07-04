@@ -25,21 +25,21 @@ commandArray = {}
 -- If user updates indicated thermostat and heating mode is day, update the day thermostat
 if (devicechanged[temp_indicator] and otherdevices[mode_switch] == 'On') then
 	debuglog('Indicated temperature changed, updating day thermostat')
-	commandArray['OpenURL'] = 'http://localhost:8080/json.htm?type=command&param=udevice&idx=' .. tostring(temp_day_idx) .. '&nvalue=0&svalue=' .. tostring(otherdevices_svalues[temp_indicator])
+	commandArray['OpenURL'] = 'http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=' .. tostring(temp_day_idx) .. '&nvalue=0&svalue=' .. tostring(otherdevices_svalues[temp_indicator])
 -- If user updates indicated thermostat and heating mode is night, update the night thermostat
 elseif (devicechanged[temp_indicator] and otherdevices[mode_switch] == 'Off') then
 	debuglog('Indicated temperature changed, updating night thermostat')
-	commandArray['OpenURL'] = 'http://localhost:8080/json.htm?type=command&param=udevice&idx=' .. tostring(temp_night_idx) .. '&nvalue=0&svalue=' .. tostring(otherdevices_svalues[temp_indicator])
+	commandArray['OpenURL'] = 'http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=' .. tostring(temp_night_idx) .. '&nvalue=0&svalue=' .. tostring(otherdevices_svalues[temp_indicator])
 -- If user changes the day/night mode
 elseif (devicechanged[mode_switch]) then
 	-- Day mode selected, set indicated thermostat to day value
 	if (otherdevices[mode_switch] == 'On' and otherdevices_svalues[temp_day] ~= otherdevices_svalues[temp_indicator]) then
 		debuglog('Mode selected - day, updating indicator')
-		commandArray['OpenURL'] = 'http://localhost:8080/json.htm?type=command&param=udevice&idx=' .. tostring(temp_indicator_idx) .. '&nvalue=0&svalue=' .. tostring(otherdevices_svalues[temp_day])
+		commandArray['OpenURL'] = 'http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=' .. tostring(temp_indicator_idx) .. '&nvalue=0&svalue=' .. tostring(otherdevices_svalues[temp_day])
 	-- Night mode selected, set indicated thermostat to night value
 	elseif (otherdevices[mode_switch] == 'Off' and otherdevices_svalues[temp_night] ~= otherdevices_svalues[temp_indicator]) then
 		debuglog('Mode selected - night, updating indicator')
-		commandArray['OpenURL'] = 'http://localhost:8080/json.htm?type=command&param=udevice&idx=' .. tostring(temp_indicator_idx) .. '&nvalue=0&svalue=' .. tostring(otherdevices_svalues[temp_night])
+		commandArray['OpenURL'] = 'http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=' .. tostring(temp_indicator_idx) .. '&nvalue=0&svalue=' .. tostring(otherdevices_svalues[temp_night])
 	end
 end
 
