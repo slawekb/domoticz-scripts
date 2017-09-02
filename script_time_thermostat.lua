@@ -23,6 +23,7 @@ local threshold_high = 0.0	-- How much temperature has to raise above setpoint b
 local sensor = 'Temp: Pokój'	-- Sensor to derive room temperature
 local switch = 'Ogrzewanie: Kocioł'	-- Physical switch to operate (boiler switch)
 local mode = 'Ogrzewanie: Dzień/Noc' -- Day/Night mode switch
+local override = 'Ogrzewanie: Suszenie' -- Override - always on
 
 -- Thermostats to use for day, night and holiday temperature setting
 local thermostat_day = 'Termostat: Dzień' -- Day
@@ -103,12 +104,14 @@ debuglog ('Setpoint   :' .. settemp)
 if (temperature < (settemp - threshold_low)) then
 	debuglog ('Temperature low, heating on')
 	updatedevice('On')
+elseif (otherdevices[override] == 'On') then
+  debuglog ('Override on, heating on')
+  updatedevice('On')
 elseif (temperature > (settemp + threshold_high)) then
 	debuglog ('Temperature high, heating off')
 	updatedevice('Off')
 else
 	debuglog ('No need to do anything')
-	updatedevice(otherdevices[switch])
 end
 
 return commandArray
